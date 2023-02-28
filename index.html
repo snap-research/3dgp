@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>3D generation on ImageNet — ICLR 2023 (Oral)</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="3D generation on ImageNet" />
+<meta name="author" content="Ivan Skorokhodov" />
+<meta property="og:locale" content="en_US" />
+<link rel="canonical" href="https://snap-research.github.io/3dgp" />
+<meta property="og:url" content="https://snap-research.github.io/3dgp" />
+<meta property="og:video" content="https://youtu.be/2FwPhFnE1Wo" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="3D generation on ImageNet — ICLR 2023 (Oral)" />
+<script type="application/ld+json">
+{"headline":"3D generation on ImageNet — ICLR 2023 (Oral)","author":{"@type":"Person","name":"Ivan Skorokhodov"},"url":"https://snap-research.github.io/3dgp","@type":"WebPage","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<meta property="og:description" content="3D generation on ImageNet"><meta property="og:url" content="https://snap-research.github.io/3dgp"><meta property="og:video" content="https://universome.github.io/3dgp/assets/projects/3dgp/videos/teaser.mp4"><link type="application/atom+xml" rel="alternate" href="https://universome.github.io/feed.xml" title="" /><!----><!-- Adding the favicon -->
+    <link rel="shortcut icon" href="./assets/favicon.ico" /><link rel="stylesheet" href="./assets/main.css">
+</head>
+
+
+
+
+<body>
+    <link rel="stylesheet" href="./assets/css/project-page.css">
+
+<div class="project-page page-content" aria-label="Content">
+    <!-- <div class="wrapper"> -->
+        <div class="content-block-wrapper">
+            <div class="content-block">
+<h1 class="project-page-title ">3D generation on ImageNet</h1>
+
+
+<h5 class="conference-name">ICLR 2023 (Oral)</h5>
+
+
+<p class="authors-list"><span class="author-link-container"><a class="author-link" href="https://universome.github.io" target="_blank">Ivan Skorokhodov</a><!--<sup>2</sup>--><br/>
+        <a class="org-link" href="https://kaust.edu.sa" target="_blank">KAUST</a></span><span class="author-link-container"><a class="author-link" href="https://aliaksandrsiarohin.github.io/aliaksandr-siarohin-website/" target="_blank">Aliaksandr Siarohin</a><!--<sup>1</sup>--><br/>
+        <a class="org-link" href="https://research.snap.com" target="_blank">Snap Inc.</a></span><span class="author-link-container"><a class="author-link" href="https://justimyhxu.github.io/" target="_blank">Yinghao Xu</a><!--<sup>3</sup>--><br/>
+        <a class="org-link" href="https://www.cuhk.edu.hk" target="_blank">CUHK</a></span><span class="author-link-container"><a class="author-link" href="https://alanspike.github.io/" target="_blank">Jian Ren</a><!--<sup>1</sup>--><br/>
+        <a class="org-link" href="https://research.snap.com" target="_blank">Snap Inc.</a></span><span class="author-link-container"><a class="author-link" href="http://hsinyinglee.com/" target="_blank">Hsin-Ying Lee</a><!--<sup>1</sup>--><br/>
+        <a class="org-link" href="https://research.snap.com" target="_blank">Snap Inc.</a></span><span class="author-link-container"><a class="author-link" href="https://peterwonka.net" target="_blank">Peter Wonka</a><!--<sup>2</sup>--><br/>
+        <a class="org-link" href="https://kaust.edu.sa" target="_blank">KAUST</a></span><span class="author-link-container"><a class="author-link" href="http://www.stulyakov.com" target="_blank">Sergey Tulyakov</a><!--<sup>1</sup>--><br/>
+        <a class="org-link" href="https://research.snap.com" target="_blank">Snap Inc.</a></span></p>
+
+<!--<h4 class="common-orgs"><span class="common-org-name">
+
+<sup>1</sup><a target="_blank" href="https://research.snap.com">Snap Inc.</a>
+</span><span class="common-org-name">
+
+<sup>2</sup><a target="_blank" href="https://kaust.edu.sa">KAUST</a>
+</span><span class="common-org-name">
+
+<sup>3</sup><a target="_blank" href="https://www.cuhk.edu.hk">CUHK</a>
+</span></h4>-->
+
+<div class="logos"><img class="logo" src="./assets/images/snap-logo-small-padding.png" alt="Snap Inc."><img class="logo" src="./assets/images/kaust-logo.png" alt="KAUST"><img class="logo" src="./assets/images/cuhk-logo.png" alt="CUHK"></div></div>
+        </div>
+
+        <div class="content-block-wrapper abstract">
+            <div class="content-block">
+                <div class="abstract">
+                    <h2 class="subtitle">Abstract</h2><p>Existing 3D-from-2D generators are typically designed for well-curated single-category datasets, where all the objects have (approximately) the same scale, 3D location and orientation, and the camera always points to the center of the scene. This makes them inapplicable to diverse, in-the-wild datasets of non-alignable scenes rendered from arbitrary camera poses. In this work, we develop a <i>3D generator with Generic Priors (3DGP)</i>: a 3D synthesis framework with more general assumptions about the training data, and show that it scales to very challenging datasets, like ImageNet. Our model is based on three new ideas. First, we incorporate an <i>inaccurate</i> off-the-shelf depth estimator into 3D GAN training via a special depth adaptation module to handle the imprecision. Then, we create a flexible camera model and a regularization strategy for it to learn its distribution parameters during training. Finally, we extend the recent ideas of transferring knowledge from pretrained classifiers into GANs for patch-wise trained models by employing a simple distillation-based technique on top of the discriminator. It achieves more stable training than the existing methods and speeds up the convergence by at least 40%. We explore our model on four datasets: SDIP Dogs 256x256, SDIP Elephants 256x256, LSUN Horses 256x256, and ImageNet 256x256 and demonstrate that 3DGP outperforms the recent state-of-the-art in terms of both texture and geometry quality.</p>
+
+                    <div class="youtube-video-container"><iframe src="https://www.youtube.com/embed/2FwPhFnE1Wo"></iframe></div>
+                    </div>
+                <div class="project-links">
+
+
+
+    <a class="project-link" href="https://snap-research.github.io/3dgp/3dgp-paper.pdf" target="_blank">
+        <i class="fas fa-fw fa-lg fa-file-pdf"></i>
+        Paper
+    </a>
+
+
+
+
+
+    <a class="project-link" href="https://github.com/snap-research/3dgp" target="_blank">
+        <i class="fab fa-fw fa-lg fa-github"></i>
+        Code
+    </a>
+
+
+
+    <a class="project-link" href="https://disk.yandex.ru/d/kxAG_2Y3xZjfyA" target="_blank">
+        <i class="fas fa-images"></i>
+        Data
+    </a>
+
+
+
+
+
+    <span class="project-link inactive">
+        <i class="ai fa-fw fa-lg ai-arxiv"></i>
+        Arxiv (soon)
+    </span>
+
+
+
+
+
+    <a class="project-link" href="https://u2wjb9xxz9q.github.io/" target="_blank">
+        <i class="fas fa-file-video"></i>
+        &nbsp;Supplementary
+    </a>
+    <!-- <a class="project-link" href="https://openreview.net/forum?id=U2WjB9xxZ9q" target="_blank">
+        <i class="far fa-fw fa-lg fa-file"></i>
+        OpenReview
+    </a> -->
+</div>
+
+            </div>
+        </div>
+
+
+        <div class="content-block-wrapper">
+<div class="content-block section">
+
+
+
+<h2 class="section-title">Architecture overview</h2>
+<div class="section-text">
+            <div class="img-container">
+                <img src="./assets/projects/3dgp/images/architecture.png" style="width: px"/>
+
+                    <p class="caption"><span>Left: our tri-plane-based generator. To synthesize an image, we first sample camera parameters from a prior distribution and pass them to the camera generator. This gives the posterior camera parameters, used to render an image and its depth map. The depth adaptor mitigates the distribution gap between the rendered and the predicted depth. Right: our discriminator receives a 4-channel color-depth pair as an input. A fake sample consists of the RGB image and its (adapted) depth map. A real sample consists of a real image and its estimated depth. Our two-headed discriminator predicts adversarial scores and image features for knowledge distillation.</span></p>
+
+            </div>
+
+            </div>
+</div>
+</div><div class="content-block-wrapper">
+<div class="content-block section">
+
+
+<hr class="hr"/>
+
+
+<h2 class="section-title">Samples on ImageNet 256x256</h2>
+<div class="section-text">
+            <div class="img-container">
+                <!-- /3dgp/assets/projects/3dgp -->
+                <div style="text-align: center;">
+
+
+
+
+                    <video style="border: 1px solid black; border-radius: 1px; height: auto;" class="" preload="auto" src="./assets/projects/3dgp/videos/ours/imagenet-more.mp4" type="video/mp4" controls loop autoplay></video>
+                </div>
+                <!-- <img src="/videos/ours/imagenet-more.mp4" style="max-width: px"/> -->
+
+            </div>
+
+            </div>
+</div>
+</div><div class="content-block-wrapper">
+<div class="content-block section">
+
+
+<hr class="hr"/>
+
+
+<h2 class="section-title">Comparison with contemporary 3D generators</h2>
+<div class="section-text">
+            <div class="img-container">
+                <div class="videos-list">
+
+                    <div class="video-item">
+                        <video width="384" style="border: 1px solid black; border-radius: 1px;" preload="auto" src="./assets/projects/3dgp/videos/comparison/eg3d.mp4" type="video/mp4" controls loop autoplay></video>
+
+                        <p class="caption"><span><a href="https://nvlabs.github.io/eg3d/" target="_blank">EG3D</a></span></p>
+
+                    </div>
+
+                    <div class="video-item">
+                        <video width="384" style="border: 1px solid black; border-radius: 1px;" preload="auto" src="./assets/projects/3dgp/videos/comparison/epigraf.mp4" type="video/mp4" controls loop autoplay></video>
+
+                        <p class="caption"><span><a href="https://universome.github.io/epigraf" target="_blank">EpiGRAF</a></span></p>
+
+                    </div>
+
+                    <div class="video-item">
+                        <video width="384" style="border: 1px solid black; border-radius: 1px;" preload="auto" src="./assets/projects/3dgp/videos/comparison/3dgp.mp4" type="video/mp4" controls loop autoplay></video>
+
+                        <p class="caption"><span>3DGP (ours)</span></p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            </div>
+</div>
+</div><div class="content-block-wrapper">
+<div class="content-block section">
+
+
+<hr class="hr"/>
+
+
+<h2 class="section-title">Depth Adaptor ablation on SDIP Dogs 256x256</h2>
+<div class="section-text">
+            <div class="img-container">
+                <div class="videos-list">
+
+                    <div class="video-item">
+                        <video width="384" style="border: 1px solid black; border-radius: 1px;" preload="auto" src="./assets/projects/3dgp/videos/ablation/p1.mp4" type="video/mp4" controls loop autoplay></video>
+
+                        <p class="caption"><span>No Depth Adaptator: FID<sub>2k</sub> = 12.2</span></p>
+
+                    </div>
+
+                    <div class="video-item">
+                        <video width="384" style="border: 1px solid black; border-radius: 1px;" preload="auto" src="./assets/projects/3dgp/videos/ablation/p05.mp4" type="video/mp4" controls loop autoplay></video>
+
+                        <p class="caption"><span>Adapting depth with 50% probability: FID<sub>2k</sub> = 9.25</span></p>
+
+                    </div>
+
+                    <div class="video-item">
+                        <video width="384" style="border: 1px solid black; border-radius: 1px;" preload="auto" src="./assets/projects/3dgp/videos/ablation/p0.mp4" type="video/mp4" controls loop autoplay></video>
+
+                        <p class="caption"><span>Adapting depth with 100% probability: FID<sub>2k</sub> = 8.13</span></p>
+
+                    </div>
+
+                </div>
+
+                <p class="caption"><span>We use Depth Adaptor to adapt the depth rendered from generated 3D scenes before passing them into Discriminator. Otherwise, Generator will be forced to fit prediction artifacts of the LeReS depth estimator. And Depth Adaptor prevents its errors from leaking into the learned geometry. This helps to improve the image quality — for more more complex datasets (e.g., ImageNet), training diverges if we train without the depth adaptor.</span></p>
+
+            </div>
+
+            </div>
+</div>
+</div><div class="content-block-wrapper">
+<div class="content-block section">
+
+
+<hr class="hr"/>
+
+
+<h2 class="section-title">Geometry comparison</h2>
+<div class="section-text">
+            <div class="img-container">
+                <img src="./assets/projects/3dgp/images/geometry.png" style="width: px"/>
+
+            </div>
+
+            </div>
+</div>
+</div><div class="content-block-wrapper">
+<div class="content-block section">
+
+
+<hr class="hr"/>
+
+
+<h2 class="section-title">Convergence speed with knowledge distillation</h2>
+<div class="section-text">
+            <div class="img-container">
+                <img src="./assets/projects/3dgp/images/distillation.png" style="width: 640px"/>
+
+                    <p class="caption"><span><b>Convergence of StyleGAN2 (in terms FID vs the number of real images seen by Discriminator) on ImageNet 128x128 for different knowledge distillation strategies.</b> We develop a general and efficient strategy of transferring external knowledge into the GAN model based on knowledge distillation. It consists in forcing the discriminator to predict features of a pre-trained ResNet50 model. This technique has just 1% of computational overhead compared to standard training, but allows to improve FID for both 2D and 3D generators by at least 40%. Compared to knowledge transfer through initialization (i.e., <a href="https://arxiv.org/abs/2111.01007" target="_blank">ProjectedGANs</a>), it does not restrict the discriminator's architecture, and we can combine it with patch-wise training or using depth maps as the 4-th input channel.</span></p>
+
+            </div>
+
+            </div>
+</div>
+</div><div class="content-block-wrapper">
+<div class="content-block section">
+
+
+<hr class="hr"/>
+
+
+<h2 class="section-title">Quantitative results</h2>
+<div class="section-text">
+            <div class="table-container" style="max-width: 1000px;">
+                <p><table> <thead> <tr><th><span>Model</span></th><th><span>Synthesis type</span></th><th><span>FID ↓</span></th><th><span>Inception Score ↑</span></th><th><span>Training cost (A100 GPU days) ↓</span></th></tr> </thead> <tbody>
+    <tr><td><a href="https://arxiv.org/abs/1809.11096" target="_blank">BigGAN</a></td><td><span>2D</span></td><td><span>8.7</span></td><td><span>142.3</span></td><td><span>60</span></td></tr>
+    <tr><td><a href="https://sites.google.com/view/stylegan-xl/" target="_blank">StyleGAN-XL</a></td><td><span>2D</span></td><td><span>2.3</span></td><td><span>265.1</span></td><td><span>163+</span></td></tr>
+    <tr><td><a href="https://arxiv.org/abs/2105.05233" target="_blank">ADM</a></td><td><span>2D</span></td><td><span>4.59</span></td><td><span>186.7</span></td><td><span>458</span></td></tr>
+    <tr><td><a href="https://nvlabs.github.io/eg3d/" target="_blank">EG3D</a></td><td><span>3D-aware</span></td><td><span>26.7</span></td><td><span>61.4</span></td><td><span>18.7</span></td></tr>
+    <tr><td><span>+ wide camera distribution</span></td><td><span>3D-aware</span></td><td><span>25.6</span></td><td><span>57.3</span></td><td><span>18.7</span></td></tr>
+    <tr><td><a href="https://genforce.github.io/volumegan/" target="_blank">VolumeGAN</a></td><td><span>3D-aware</span></td><td><span>77.68</span></td><td><span>19.56</span></td><td><span>15.17</span></td></tr>
+    <tr><td><a href="https://jiataogu.me/style_nerf/" target="_blank">StyleNeRF</a></td><td><span>3D-aware</span></td><td><span>56.64</span></td><td><span>21.80</span></td><td><span>20.55</span></td></tr>
+    <tr><td><a href="https://sites.google.com/view/stylegan-xl/" target="_blank">StyleGAN-XL</a> + <a href="https://shihmengli.github.io/3D-Photo-Inpainting/" target="_blank">3DPhoto</a></td><td><span>3D-aware</span></td><td><span>116.9</span></td><td><span>9.47</span></td><td><span>165+</span></td></tr>
+    <tr><td><a href="https://universome.github.io/epigraf" target="_blank">EpiGRAF</a></td><td><span>3D</span></td><td><span>47.56</span></td><td><span>26.68</span></td><td><span>15.9</span></td></tr>
+    <tr><td><span>+ wide camera distribution</span></td><td><span>3D</span></td><td><span>58.17</span></td><td><span>20.36</span></td><td><span>15.9</span></td></tr>
+    <tr><td><span>3DGP </span><span style="color:#0070C0">(ours)</span></td><td><span>3D</span></td><td><span>19.71</span></td><td><span>124.8</span></td><td><span>28</span></td></tr>
+</tbody> </table></p>
+            </div>
+
+            </div>
+</div>
+</div><div class="content-block-wrapper">
+<div class="content-block section">
+
+
+<hr class="hr"/>
+
+
+<h2 class="section-title">Limitations and failure cases</h2>
+<div class="section-text">
+            <p><b> 😭 Background sticking and no 360° generation.</b> Since we use . The contemporary <a href="https://kylesargent.github.io/vq3d" target="_blank">VQ3D</a> generator used <a href="https://arxiv.org/abs/2111.12077" target="_blank">Mip-NeRF-360</a>'s coordinates contraction to fit an onbounded scene into tri-planes' \([-1, 1]^3\) cube. We believe it could be help with background sticking. For 360 generation, one needs supervision for side-views, which could be obtained via <a href="https://dreamfusion3d.github.io/" target="_blank">DreamFusion</a>-like guidance by a general-purpose text-to-image 2D diffusion model.</p>
+
+
+            <p><b> 😬 Lower visual quality compared to 2D generators.</b> Despite providing a more reasonable representation of the underlining scene, 3D generators still have a lower visual quality compared to 2D generators. Closing this gap is essential for a wide adaptation of 3D generators.</p>
+
+
+            <p><b> 😢 Skewed geometry because of the relative depth.</b> At the time of project development, there were no general-purpose metric depth estimators available, that's why we used <a href="https://github.com/aim-uofa/AdelaiDepth/" target="_blank">LeReS</a>, which is a relative depth estimator. This does not give good guidance since the recovered 3D shapes from a relative depth estimator are skewed. But recently, there started to appear general-purpose metric depth estimators (e.g., <a href="https://arxiv.org/abs/2302.12288" target="_blank">ZoeDepth</a>).</p>
+
+
+            <p><b> 😟 Camera generator does not learn fine-grained camera control.</b> While our camera generator is conditioned on the class label, and, in theory, it should be able to perform fine-grained control over the class focal length distributions (which is natural since landscape panoramas and close-up view of a coffee mug typically have different focal lengths), we observed that it is doing this only for controlled experiments (e.g., on <a href="https://github.com/universome/megascans-rendering" target="_blank">Megascans Food</a> \(128^2\)). For ImageNet, we didn't observed that our Generator does not learn any fine-grained control over FoV. We attribute this problem to the implicit bias of the generator to produce large-FoV images due to tri-planes parametrization. Tri-planes define a limited volume box in space, and close-up renderings with large focal length would utilize fewer tri-plane features, hence using less generator’s capacity. This is why 3DGP attempts to perform modeling with larger field-of-view values.</p>
+
+
+            <!-- <div class="img-container">
+                <img src="./assets/projects/3dgp/images/focal-length-dist.png" style="width: 640px"/>
+                    <p class="caption"><span>Focal length distribution on ImageNet \(256^2\) learned by our Camera Generator. The blue solid line is the mean values, while lower/upper curves are 0.05 and 0.95 quantiles, respectively.</span></p>
+            </div> -->
+
+
+            <p><b> 😱 Flat geometry for some classes.</b> Despite our best efforts to enable rich geometry guidance, we noticed that our tri-plane-based generator is still inherently biased towards producing flat shapes (which was also noticed by <a href="https://nvlabs.github.io/eg3d/" target="_blank">EG3D</a> and <a href="https://xiaoming-zhao.github.io/projects/gmpi/" target="_blank">GMPI</a>).</p>
+
+
+            <!-- <div class="img-container">
+                <div style="text-align: center;">
+                    <video style="border: none; height: auto;" class="small-video" preload="auto" src="./assets/projects/3dgp/videos/random-samples.mp4" type="video/mp4"  loop autoplay controls></video>
+                </div>
+                <p class="caption"><i>Random</i> samples from 3DGP for class indices 1-8, seed=0.</p>
+            </div> -->
+
+
+            <p><b> 😕 On ImageNet, we have low intra-category diversity (i.e., notorious GAN mode collapse).</b> We observed that our Generator is biased towards producing low intra-class diversity. We attribute this to two reasons: 1) generating 3D is considerably more difficult than generating 2D and thus requires more capacity, but our Generator is relatively small even compared to 2D ImageNet generators; 2) it is more difficult for Discriminator to detect a mode collapse when the same shape is rendered from different camera positions and thus creating the effect of multiple different images. At the same time, we didn't observe any mode collapse issue on other datasets.</p>
+
+
+            <!-- <div class="img-container">
+                <div style="text-align: center;">
+                    <video style="border: none; height: auto;" class="small-video" preload="auto" src="./assets/projects/3dgp/videos/mode-collapse.mp4" type="video/mp4"  loop autoplay controls></video>
+                </div>
+                <p class="caption">Samples for the same class and different latent noise vectors.</p>
+            </div> -->
+
+            </div>
+</div>
+</div>
+
+
+        <div class="content-block-wrapper">
+            <div class="content-block"><div class="bibtex">
+    <h2 class="subtitle">BibTeX</h2>
+    <pre>@inproceedings{3dgp,
+    title={3D generation on ImageNet},
+    author={Ivan Skorokhodov and Aliaksandr Siarohin and Yinghao Xu and Jian Ren and Hsin-Ying Lee and Peter Wonka and Sergey Tulyakov},
+    booktitle={International Conference on Learning Representations},
+    year={2023},
+    url={https://openreview.net/forum?id=U2WjB9xxZ9q}
+}</pre>
+</div>
+</div>
+        </div>
+
+    <!-- </div> -->
+</div>
+<footer class="site-footer h-card">
+<div class="wrapper">
+    <p class="footer-text">
+    Built with <a href="https://jekyllrb.com">Jekyll</a> based on <a href="https://github.com/jekyll/minima">Minima</a>.
+    <!-- I also used <a href="https://fontawesome.com">Font Awesome</a>, <a href="http://flaticon.com">flaticons</a> and <a href="https://jpswalsh.github">academicons</a> here and there. -->
+    </p>
+</div>
+</footer>
+  </body>
+
+    <!-- <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet"> -->
+    <!-- <style>
+    * {
+        font-family: 'Roboto', sans-serif;
+    }
+    </style> -->
+
+  <!-- Put this after the content so the page is displayed faster? -->
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</html>
