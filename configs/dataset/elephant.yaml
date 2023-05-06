@@ -1,0 +1,4 @@
+# @package _group_
+
+name: elephant_${dataset.resolution}_with_depth
+embeddings_dir: elephant

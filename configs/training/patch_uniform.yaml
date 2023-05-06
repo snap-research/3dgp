@@ -1,0 +1,5 @@
+# @package _group_
+
+name: patch_uniform_p${training.patch.resolution}_min${training.patch.min_scale_trg}
+patch:
+  distribution: uniform

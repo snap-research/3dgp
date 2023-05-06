@@ -1,0 +1,25 @@
+# @package _group_
+
+# Main options
+seeds: ~
+num_seeds: ~
+classes: ~
+cube_size: 0.3
+volume_res: 256
+voxel_origin: [0.0, 0.0, 0.0]
+output_dir: shapes
+thresh_value: 25.0
+truncation_psi: 0.7
+verbose: true
+save_mrc: true # Should we save an MRC file (to be viewed with UCSF ChimeraX later)?
+save_obj: false
+save_ply: false
+num_ply_points: 2048
+
+# Checkpoint loading options
+ckpt:
+  network_pkl: ~ # Network pickle filename
+  networks_dir: ~ # Network pickles directory
+  selection_metric: fid2k_full # Which metric to use when selecting the best ckpt?
+  reload_code: false # If we changed the code and what to run with the new code, we can reload it.
+  random_init: false

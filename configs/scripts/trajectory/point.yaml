@@ -1,0 +1,7 @@
+# @package _group_
+
+name: point
+yaw_offset: 0.0
+pitch_offset: 0.0
+fov_offset: 0.0
+num_frames: 1 # For compatibility.

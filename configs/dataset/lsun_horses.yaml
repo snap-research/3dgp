@@ -1,0 +1,4 @@
+# @package _group_
+
+name: lsun_horses_${dataset.resolution}_40k_with_depth
+embeddings_dir: horses

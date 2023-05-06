@@ -1,0 +1,8 @@
+# @package _group_
+
+name: patch_beta_p${training.patch.resolution}_mins${training.patch.min_scale_trg}
+patch:
+  distribution: beta
+  alpha: 1.0
+  beta_val_start: 0.001
+  beta_val_end: 0.8

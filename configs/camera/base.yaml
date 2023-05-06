@@ -1,0 +1,23 @@
+# @package _group_
+
+ray: {start: 0.75, end: 1.25}
+fov: {dist: uniform, min: 10.0, max: 45.0}
+# By default, using a generous uniform distribution
+origin:
+  radius: {dist: normal, mean: 1.0, std: 0.0}
+  angles:
+    dist: truncnorm
+    yaw: {min: -1.57079633, max: 1.57079633, mean: 0.0, std: 0.4} # [-pi/2, pi/2]
+    pitch: {min: 0.392699082, max: 2.74889357, mean: 1.57, std: 0.2} # [pi/8, pi/2 + pi/8]
+
+# By default, look_at is (0, 0, 0).
+# Using wide dist for yaw/pitch since they are not affected anyway (radius is set to 0)
+look_at:
+  radius: {dist: uniform, min: 0.0, max: 0.0}
+  angles:
+    dist: spherical_uniform
+    yaw: {min: -3.14159265, max: 3.14159265}
+    pitch: {min: 0.0, max: 3.14159265}
+
+cube_scale: 0.5
+validate_viewing_frustum: false

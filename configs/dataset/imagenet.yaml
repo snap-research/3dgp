@@ -1,0 +1,5 @@
+# @package _group_
+
+name: imagenet_${dataset.resolution}_with_depth
+c_dim: 1000
+embeddings_dir: imagenet

@@ -1,0 +1,8 @@
+dataset_path: "/path/to/my/dataset"
+dataset_name:
+  _target_: src.infra.utils.basename_without_ext
+  path: ${dataset_path}
+batch_size: 32
+embedder: "resnet50"
+output_path: "/path/to/save/my/results.memmap"
+device: cuda

@@ -1,0 +1,7 @@
+# @package _group_
+
+name: video_grid
+num_videos_per_grid: 16
+fps: 30
+as_gif: false
+nrow: auto

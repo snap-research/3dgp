@@ -1,0 +1,35 @@
+defaults:
+  - vis/base.yaml
+  - vis: video_grid
+
+  - trajectory/base.yaml
+  - trajectory: front_circle
+
+# Checkpoint loading options
+ckpt:
+  network_pkl: ~ # Network pickle filename
+  networks_dir: ~ # Network pickles directory
+  selection_metric: fid2k_full # Which metric to use when selecting the best ckpt?
+  reload_code: false # If we changed the code and what to run with the new code, we can reload it.
+  random_init: false
+
+# Randomness options
+seed: 1 # Random seed to fix non-generation randomness
+num_seeds: ~ # The number of samples to generate
+seeds: ~ # You can optionally override the `seed` argument by specifying seeds manually.
+classes: ~
+class_names: ~ # Path to a txt file with human-readable class names
+num_interp_steps: 0 # By default, we are not using any interpolation
+
+# Inference options
+batch_size: 16 # Batch size to use when generating videos
+truncation_psi: 0.7 # Truncation psi.
+img_resolution: 256 # Image resolution of the generator?
+ray_step_multiplier: 2 # Inrease in the number of steps per ray
+synthesis_kwargs: {} # Empty by default
+force_whiteback: false # Should we forcefully switch whiteback to true?
+far_plane_offset: 1.0 # Offsets the far plan so that we capture more volume.
+
+# Logging options
+verbose: true
+output_dir: ~ # Where to save the output?

@@ -1,0 +1,10 @@
+# @package _group_
+
+name: uniform
+origin:
+  angles:
+    dist: uniform
+    yaw: {min: -1.57, max: 1.57}
+    pitch: {min: 0.785398163, max: 2.35619449}
+look_at:
+  radius: {dist: uniform, min: 0.0, max: 0.2}

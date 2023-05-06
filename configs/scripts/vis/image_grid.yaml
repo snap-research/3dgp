@@ -1,0 +1,6 @@
+# @package _group_
+
+name: image_grid
+num_images_per_grid: 16
+save_ext: .jpg
+nrow: ~

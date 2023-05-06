@@ -1,0 +1,91 @@
+# @package _group_
+
+name: 3dgp
+generator:
+  num_ray_steps: 32 # Amount of evaluations per ray
+  ray_marcher_type: classical
+  max_batch_res: 128 # Split the test-time rendering into batches if the rendered resolution is larger than `max_batch_res`
+  fp32_only: true
+  use_full_box: false
+  architecture: skip
+
+  # Add some layers for w->s codes transform and disable Mapping Network depth
+  # to simulate separate mapping networks for each SynthesisLayer.
+  # We need this for progressive growing.
+  map_depth: 2
+
+  # An activation to clamp density
+  # Somehow, in our early experiments it was very important...
+  clamp_mode: softplus
+
+  # Similar to NeRF, we add noise to evaluations
+  nerf_noise_std_init: 1.0
+  nerf_noise_kimg_growth: 5000
+
+  # Should we use spatial noise in StyleGAN2?
+  # Very strangely, we found this to be important in our early experiments...
+  use_noise: true
+
+  tri_plane:
+    res: 512 # Resolution for the tri-plane. It's higher than in EG3D since we train in high-res directly
+    feat_dim: 32 # Dimensionality of the tri-plane
+
+    # Parameters of the tri-plane MLP
+    mlp:
+      n_layers: 2 # Total number of layers
+      hid_dim: 64 # Dimensionality of hidden layers
+
+    ema_kimg: {b: 5.0}
+
+  depth_adaptor:
+    kernel_size: 5
+    hid_dim: 64
+    num_hid_layers: 3
+    out_strategy: random
+    selection_start_p: 0.1
+    anneal_kimg: 10000
+    near_plane_offset_max_fraction: 0.25
+    near_plane_offset_bias: -3.0
+    w_dim: ${model.generator.w_dim}
+    camera: ${camera}
+
+  camera_adaptor:
+    camera: ${camera}
+    residual: false
+    lipschitz_weights: {enabled: false}
+    emd:
+      enabled: true
+      anneal_kimg: 10000
+      num_samples: 64
+      origin: 2.0
+      radius: 0.0
+      fov: 0.0001
+      look_at: 0.0001
+    lr_multiplier: 0.1
+    z_dim: ${model.generator.z_dim}
+    c_dim: ${model.generator.c_dim}
+    hid_dim: 256
+    embed_dim: 16
+    adjust:
+      angles: true
+      radius: false
+      fov: true
+      look_at: true
+    force_mean_weight: 10.0 # Forcing the angles to be near the mean
+
+discriminator:
+  # Should we use patch parameters modulation for the discriminator?
+  hyper_mod: true
+
+  # The amount of start blocks of max resolution before the downsampling backbone begins
+  # We want to have the same amount of overall blocks as StyleGAN2 discriminator,
+  # that's why we need to adjust
+  num_additional_start_blocks:
+    _target_: src.infra.utils.log2_divide
+    dividend: ${dataset.resolution}
+    divisor: ${training.patch.resolution}
+
+loss_kwargs:
+  blur_init_sigma: 10
+  blur_fade_kimg: 200
+  kd: {discr: {weight: 1.0}}

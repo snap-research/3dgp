@@ -1,0 +1,10 @@
+# @package _group_
+
+name: patch_discrete_uniform_p${training.patch.resolution}
+patch:
+  distribution: discrete_uniform
+  discrete_support:
+    _target_: src.infra.utils.linspace
+    val_from: 0.25
+    val_to: 1.0
+    num_steps: 2

@@ -1,0 +1,13 @@
+# @package _group_
+
+name: epigraf
+ray: {start: 0.88, end: 1.12}
+fov: {dist: normal, mean: 12.0, std: 0.0}
+origin:
+  radius: {dist: normal, mean: 1.0, std: 0.0}
+  angles:
+    dist: normal
+    yaw: {mean: 0.0, std: 0.6}
+    pitch: {mean: 1.57, std: 0.3}
+look_at: {radius: {dist: uniform, min: 0.0, max: 0.0}}
+cube_scale: 0.2

@@ -1,0 +1,22 @@
+# @package _group_
+
+path: data/${dataset.name}.zip
+c_dim: 0
+mirror: true # Should we mirror the dataset? (i.e., x-flip augmentation)
+camera: ${camera}
+
+# Default parameters
+resolution: 256
+white_back: false
+last_back: false
+
+# When used with slurm, this will take the dataset from `path_for_slurm_job`
+# and will copy it into the `path` location
+path_for_slurm_job: ${env.datasets_dir}/${dataset.name}.zip
+
+# Configs for the embeddings for knowledge distillation.
+use_embeddings: true # Should we use CLIP/ResNet embeddings during training instead of labels?
+embedder_name: resnet50 # one of ["efnb8", "clip" "resnet50"]
+embedding_dim: 2048 # resnet50 is 2048, efnb8 is 2816, clip is 768
+embeddings_path: ${env.embeddings_root_dir}/${dataset.embeddings_dir}/embeddings_${dataset.embedder_name}.memmap
+embeddings_desc_path: ${env.embeddings_root_dir}/${dataset.embeddings_dir}/embeddings_${dataset.embedder_name}_desc.json

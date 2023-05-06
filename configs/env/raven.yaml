@@ -1,0 +1,15 @@
+# @package _group_
+
+python_bin: ${env.project_path}/env/bin/python
+project_path: /ibex/ai/project/c2176/rnf
+before_train_commands:
+  - source $HOME/.bashrc
+  - module unload cuda
+  - module load cuda
+  - module load cmake
+  - module load gcc/8.2.0
+  - conda activate /ibex/ai/project/c2176/rnf/env
+  - pwd
+  - python -c 'import torch; print("Number of GPUs available:", torch.cuda.device_count())'
+datasets_dir: /ibex/ai/project/c2176/datasets/zip-data-links
+slurm_constraint: a100

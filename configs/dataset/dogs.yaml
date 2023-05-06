@@ -1,0 +1,4 @@
+# @package _group_
+
+name: dogs_${dataset.resolution}_with_depth
+embeddings_dir: dogs

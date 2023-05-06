@@ -1,0 +1,14 @@
+# @package _group_
+
+name: shapenet
+ray: {start: 1.45, end: 2.55}
+fov: {dist: normal, mean: 40.0, std: 0.0}
+# By default, using wide spherical uniform dist with radius=1
+origin:
+  radius: {dist: normal, mean: 2.0, std: 0.0}
+  angles:
+    dist: normal
+    yaw: {mean: 0.0, std: 0.392699082}
+    pitch: {mean: 1.57079633, std: 0.392699082}
+look_at: {radius: {dist: uniform, min: 0.0, max: 0.0}}
+cube_scale: 1.2

@@ -1,0 +1,44 @@
+name: 3dgp
+channels:
+  - pytorch
+  - nvidia
+dependencies:
+  - python >= 3.8
+  - pip
+  - numpy=1.22
+  - click>=8.0
+  - pillow=8.3.1
+  - scipy=1.7.1
+  - pytorch=1.11
+  - cudatoolkit=11.1
+  - requests=2.26.0
+  - tqdm=4.62.2
+  - ninja=1.10.2
+  - matplotlib=3.4.2
+  - imageio=2.9.0
+  - pip:
+    - torchvision==0.12
+    - imgui==1.3.0
+    - glfw==2.2.0
+    - pyopengl==3.1.5
+    - imageio-ffmpeg==0.4.3
+    - pyspng
+    - tensorboard==2.4.1
+    - scikit-learn==1.2.2
+    - tqdm
+    - gitpython
+    - gpustat
+    - hydra-core==1.0.7
+    - av==8.1.0
+    - torch_tb_profiler==0.3.1
+    - joblib==1.1.0
+    - dill==0.3.5.1
+    - timm==0.4.12
+    - ftfy
+    - pot
+    - regex
+    - git+https://github.com/openai/CLIP.git@d50d76daa670286dd6cacf3bcd80b5e4823fc8e1
+    - protobuf==3.20 # Otherwise we get "TypeError: Descriptors cannot not be created directly." when loading TensorBoard
+    - pymcubes==0.1.4
+    - trimesh==3.20.1
+

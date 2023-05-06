@@ -1,0 +1,62 @@
+# @package _group_
+
+batch_size: 64 # Total batch size
+batch_gpu: null # Limit batch size per GPU
+test_batch_gpu: 4 # Batch size at test time
+
+use_depth: true # Should we use depths during training?
+blur_real_depth_sigma: 0.0 # Break the blurriness of the real depth map (for ablations).
+learn_camera_dist: true # Should we learn the camera distribution?
+
+# Additional training parameters.
+resume: latest # Resume from given network pickle
+resume_only_G: false # Should we re-init D and optimizers when fine-tuning?
+resume_strict: true # Throw an error if one of the params is missing in the source weights?
+resume_optim: true # Should we resume optimizer's states?
+freezed: 0 # Freeze first layers of D
+
+# Misc settings.
+desc: null # String to include in result dir name
+metrics: fid2k_full,nfs256 # Quality metrics
+main_metric: __pick_first__ # Takes the first metric among `metrics` as the main one to compute the best checkpoint
+kimg: 25000 # Total training duration
+tick: 4 # How often to print progress
+val_freq: 100 # How often to compute metrics
+snap: 100 # How often to save snapshots
+image_snap: 100 # How often to save samples?
+seed: 0 # Random seed
+nobench: false # Disable cuDNN benchmarking
+workers: 3 # DataLoader worker processes
+dry_run: false # Print training options and exit
+
+# Default parameters for patch-wise training (in case it is enabled)
+patch:
+  enabled: true
+  patch_params_cond: true # Patch parameters pos-enc embeddings dimensionality
+  min_scale_trg:
+    _target_: src.infra.utils.divide
+    dividend: ${training.patch.resolution}
+    divisor: ${dataset.resolution}
+  max_scale: 1.0
+  anneal_kimg: 10000
+  resolution: 64
+  mbstd_group_size: ${model.discriminator.mbstd_group_size}
+
+augment:
+  mode: noaug # Augmentation mode. One of ["noaug", "ada", "fixed"]
+  p: 0.2 # Probability for aug=fixed
+  target: 0.6 # Target value for aug=ada
+  # Augment probabilities for different transformation types
+  probs:
+    xflip: 0.0
+    rotate90: 1.0
+    xint: 1.0
+    scale: 1.0
+    rotate: 1.0
+    xfrac: 1.0
+    aniso: 1.0
+    brightness: 1.0
+    contrast: 1.0
+    lumaflip: 1.0
+    hue: 1.0
+    saturation: 1.0

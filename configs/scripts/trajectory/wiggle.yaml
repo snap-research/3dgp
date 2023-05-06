@@ -1,0 +1,7 @@
+# @package _group_
+
+name: wiggle
+num_frames: 16
+yaw_left: -1.57
+yaw_right: 1.57
+pitch_diff: 0.5

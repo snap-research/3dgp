@@ -1,0 +1,16 @@
+# @package _group_
+
+# Checkpoint loading options
+ckpt:
+  network_pkl: ~ # Network pickle filename
+  networks_dir: ~ # Network pickles directory
+  selection_metric: fid2k_full # Which metric to use when selecting the best ckpt?
+  reload_code: false
+  random_init: false
+
+metrics: "fid50k_full" # Comma-separated list of metric names
+data: ~ # Path to the dataset to evaluate metrics against (directory or zip)
+gpus: 1 # Number of GPUs to use
+img_resolution: ~ # Image resolution of the dataset? (default: None, i.e. use the default resolution)
+gen_resolution: ~ # Image resolution of the generator? (default: None, i.e. use the default resolution)
+verbose: false

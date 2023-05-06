@@ -1,0 +1,17 @@
+# @package _group_
+
+python_bin: ${env.project_path}/env/bin/python
+before_train_commands: []
+torch_extensions_dir: "/tmp/torch_extensions"
+objects_to_copy:
+  - ${env.project_path}/src
+  - ${env.project_path}/configs
+  - ${env.project_path}/scripts
+# A list of objects that are static and too big to be cloned for each experiment
+symlinks_to_create:
+  - ${env.project_path}/data
+  - ${env.project_path}/embeddings
+tmp_dir: "/tmp"
+datasets_dir: ~
+embeddings_root_dir: embeddings
+slurm_constraint: v100

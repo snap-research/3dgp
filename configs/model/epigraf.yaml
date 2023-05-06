@@ -1,0 +1,48 @@
+# @package _group_
+
+name: epigraf
+generator:
+  num_ray_steps: 48 # Amount of evaluations per ray
+  ray_marcher_type: classical
+  max_batch_res: 128 # Split the test-time rendering into batches if the rendered resolution is larger than `max_batch_res`
+  fp32_only: true
+  use_full_box: false
+  use_inf_depth: true # Should we use infinity delta for the last point on a ray?
+  architecture: skip
+
+  # An activation to clamp density
+  # Somehow, in our early experiments it was very important...
+  clamp_mode: softplus
+
+  # Similar to NeRF, we add noise to evaluations
+  nerf_noise_std_init: 1.0
+  nerf_noise_kimg_growth: 5000
+
+  # Should we use spatial noise in StyleGAN2?
+  # Very strangely, we found this to be important in our early experiments...
+  use_noise: true
+
+  tri_plane:
+    res: 512 # Resolution for the tri-plane. It's higher than in EG3D since we train in high-res directly
+    feat_dim: 32 # Dimensionality of the tri-plane
+
+    # Parameters of the tri-plane MLP
+    mlp:
+      n_layers: 2 # Total number of layers
+      hid_dim: 64 # Dimensionality of hidden layers
+
+discriminator:
+  hyper_mod: true # Should we use patch parameters modulation for the discriminator?
+  fmaps: 0.5 # Originally, EpiGRAF uses 2x smaller cbase in D.
+
+  # The amount of start blocks of max resolution before the downsampling backbone begins
+  # We want to have the same amount of overall blocks as StyleGAN2 discriminator,
+  # that's why we need to adjust
+  num_additional_start_blocks:
+    _target_: src.infra.utils.log2_divide
+    dividend: ${dataset.resolution}
+    divisor: ${training.patch.resolution}
+
+loss_kwargs:
+  blur_init_sigma: 10
+  blur_fade_kimg: 200

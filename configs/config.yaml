@@ -1,0 +1,17 @@
+defaults:
+  - env/base.yaml
+  - env: local
+
+  - camera/base.yaml
+  - camera: uniform
+
+  - model/base.yaml
+  - model: 3dgp
+
+  - training/base.yaml
+  - training: patch_beta
+
+  - dataset/base.yaml
+  - dataset: imagenet
+
+  - infra.yaml

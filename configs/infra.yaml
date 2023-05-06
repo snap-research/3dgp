@@ -1,0 +1,42 @@
+# @package _group_
+
+# Arguments that we want to pass via env into slurm job launcher
+env_args:
+  project_dir: ${experiment_dir}
+  python_bin: ${env.python_bin}
+  python_script: ${experiment_dir}/src/infra/slurm_job.py
+
+num_gpus: 4
+print_only: false
+slurm: false
+
+git_hash: {_target_: src.infra.utils.get_git_hash}
+git_uncommited_changes_prefix: {_target_: src.infra.utils.get_git_uncommited_changes_prefix}
+desc: default
+experiment_name: ${dataset.name}_${model.name}_${training.name}_cam-${camera.name}_gamma${model.loss_kwargs.gamma}_${desc}
+experiment_name_with_hash: ${experiment_name}-${git_hash}${git_uncommited_changes_prefix}
+experiment_dir: ${env.project_path}/experiments/${experiment_name_with_hash}
+job_sequence_length: 1
+run_profiling: false
+
+sbatch_args:
+  constraint: ${env.slurm_constraint}
+  time: "1-0"
+  gres: gpu:${num_gpus}
+  cpus-per-task: 5
+  mem:
+    _target_: src.infra.utils.num_gpus_to_mem
+    num_gpus: ${num_gpus}
+    mem_per_gpu: 64
+  # mem-per-gpu: 64G
+  cpus-per-gpu: 5
+  comment: ${experiment_name}
+
+sbatch_args_str:
+  _target_: src.infra.utils.cfg_to_args_str
+  cfg: ${sbatch_args}
+
+env_args_str:
+  _target_: src.infra.utils.cfg_to_args_str
+  cfg: ${env_args}
+  use_dashes: true

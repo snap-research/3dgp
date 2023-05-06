@@ -1,0 +1,12 @@
+# @package _group_
+
+name: static
+ray: {start: 0.8, end: 1.2}
+fov: {dist: normal, mean: 12.0, std: 0.0}
+origin:
+  angles:
+    dist: normal
+    yaw: {mean: 0.0, std: 0.0}
+    pitch: {mean: 1.57, std: 0.0}
+look_at: {radius: {dist: uniform, min: 0.0, max: 0.0}}
+cube_scale: 0.257

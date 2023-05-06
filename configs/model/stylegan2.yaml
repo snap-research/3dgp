@@ -1,0 +1,10 @@
+# @package _group_
+
+name: stylegan2
+generator:
+  architecture: skip
+  optim:
+    kwargs: {lr: 0.002}
+discriminator: {}
+loss_kwargs:
+  pl_weight: 2.0

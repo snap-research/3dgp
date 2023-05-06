@@ -1,0 +1,82 @@
+# @package _group_
+
+generator:
+  fp32_only: false
+  cmax: 512
+  cbase: 32768
+  fmaps: 1.0
+  optim:
+    grad_clip: ~
+    kwargs:
+      lr: 0.0025
+      betas: [0.0, 0.99]
+      eps: 0.00000001
+      weight_decay: 0.0
+  patch: ${training.patch}
+  dataset: ${dataset}
+  camera: ${camera}
+  w_dim: 512
+  z_dim: 512
+  c_dim: ${dataset.c_dim}
+  map_depth: 2 # Mapping network depth
+  use_inf_depth: true # Should we use infinity delta for the last point on a ray?
+  has_view_cond: false # Should we condition on the view direction? (might worsen multi-view consistency)
+
+  # Parameters which are applicable only for 3D GANs
+  camera_cond: false
+  camera_cond_drop_p: 0.0
+  camera_cond_spoof_p: 0.5
+  density_bias: 0.0 # For MiP renderer only
+
+  # Default setting for the adaptor modules.
+  depth_adaptor:
+    enabled: ${training.use_depth}
+  camera_adaptor:
+    enabled: ${training.learn_camera_dist}
+
+  # StyleGAN3 arguments
+  conv_kernel: 3
+  use_radial_filters: false
+  magnitude_ema_beta:
+    _target_: src.infra.utils.compute_magnitude_ema_beta
+    batch_size: ${training.batch_size}
+  never_update_ema: false
+
+  # EMA of the weights arguments
+  # Half-life of the exponential moving average (EMA) of generator weights.
+  ema_kimg:
+    _target_: src.infra.utils.product_ab
+    a: ${training.batch_size}
+    b: 0.3125 # = 10 / 32
+  ema_rampup: 0.05 # EMA ramp-up coefficient. None = no rampup.
+  ema_start_kimg: 0.0
+
+discriminator:
+  fp32_only: false
+  c_dim: ${dataset.c_dim}
+  cmax: 512
+  cbase: 32768
+  fmaps: 1.0
+  patch: ${training.patch}
+  num_additional_start_blocks: 0
+  logits_clamp_val: 10000000.0 # Clamping the logits my some max magnitude to prevent D from being over-confident.
+
+  mbstd_group_size: 4 # Minibatch std group size
+  camera_cond: false
+  camera_cond_drop_p: 0.0
+  hyper_mod: false
+
+  optim:
+    kwargs: {lr: 0.002, betas: [0.0, 0.99], eps: 0.00000001, weight_decay: 0.0}
+
+loss_kwargs:
+  adv_loss_type: non_saturating
+  pl_weight: 0.0
+  pl_start_kimg: 0
+  blur_fade_kimg: 0
+  gamma: auto # R1 regularization weight
+
+  # Knowledge distillation losses (disabled by default)
+  kd:
+    architecture: ${dataset.embedder_name}
+    discr: {weight: 0.0, anneal_kimg: 100000, loss_type: "l2"}

@@ -1,0 +1,3 @@
+# @package _group_
+
+project_path: ${hydra:runtime.cwd}

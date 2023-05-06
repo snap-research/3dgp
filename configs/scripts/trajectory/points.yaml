@@ -1,0 +1,8 @@
+# @package _group_
+
+name: points
+yaw_offsets: [-0.5, 0.0, 0.5]
+# yaw_offsets: [-0.78539816, 0.0, 0.785398163]
+# yaw_offsets: [0.0, -0.45]
+# yaw_offsets: [0.0]
+pitch_offset: 0.0

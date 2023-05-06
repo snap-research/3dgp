@@ -1,0 +1,6 @@
+# @package _group_
+
+name: default
+patch:
+  enabled: false
+  patch_params_cond: false
