@@ -10,9 +10,9 @@ Release progress:
 - [x] Installation guide
 - [x] Training code
 - [x] Inference/visualization code
-- [x] [Datasets](https://disk.yandex.ru/d/kxAG_2Y3xZjfyA)
+- [x] [Datasets](https://drive.google.com/drive/folders/1yAMr1Us9gD6F5P0lCd5qiouyZ9gT5P_n)
 - [x] Data preprocessing scripts
-- [ ] ImageNet checkpoint (there is our old one available [here](https://disk.yandex.ru/d/1shKiZbN-96jtA), but it is only compatible with our [old code version](https://disk.yandex.ru/d/-BgCYGqJ_sBDjg)).
+- [ ] ImageNet checkpoint (there is our old one available [here](https://drive.google.com/file/d/1xNnnCV-XCRxm1dP1rl0n3v7sKnh7tdec/view?usp=share_link), but it is only compatible with our [old code version](https://drive.google.com/file/d/1AtbJPZ852wTTT7q8zLXuachWhnxw1J6K/view?usp=share_link)).
 - [ ] Checkpoints for satellite datasets
 - [ ] Docker container
 
