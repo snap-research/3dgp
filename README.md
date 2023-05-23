@@ -30,7 +30,7 @@ This repo is built on top of [StyleGAN3](https://github.com/NVlabs/stylegan3), s
 ### Dataset preparation
 
 First, download ImageNet, and then filter it out to remove the outliers with InceptionV3 with the procedure proposed by [Instance Selection for GANs](https://arxiv.org/abs/2007.15255).
-You can use our `scripts/data_scripts/filter_with_inception.py` script for this (though, for ImageNet we do this class-wise in the same manner as in Instance Selection for GANs).
+You can use our [`scripts/data_scripts/run_instance_selection.py`](https://github.com/snap-research/3dgp/blob/main/scripts/data_scripts/run_instance_selection.py) script for this (for ImageNet we do this class-wise in the same manner as in Instance Selection for GANs).
 Note, that we always compute FID on the full ImageNet.
 
 Now, you need to extract the depths with LeReS.
